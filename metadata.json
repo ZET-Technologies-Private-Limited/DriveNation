@@ -1,0 +1,7 @@
+{
+  "name": "drive_nation",
+  "description": "Premium luxury vehicle dealership application featuring inventory management, finance calculators, and service booking.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

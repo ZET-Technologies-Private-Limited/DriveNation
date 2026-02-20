@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #030711;
+  color: #f8fafc;
+  line-height: 1.6;
+}
+
+.text-silver-gradient {
+  background: linear-gradient(135deg, #D4AF37, #F5E6C8, #D4AF37);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+.gold-line {
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+}
+
+.glass-card {
+  background: rgba(12, 18, 34, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.elegant-border {
+  border-image: linear-gradient(135deg, rgba(212,175,55,0.3), transparent, rgba(212,175,55,0.3)) 1;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #030711;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a2236;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+/* Elegant selection */
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: #F5F0E8;
+}
+
+/* Range slider styling */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #D4AF37;
+  cursor: pointer;
+  border: 2px solid #030711;
+  box-shadow: 0 0 10px rgba(212,175,55,0.3);
+}
+input[type='range']::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #D4AF37;
+  cursor: pointer;
+  border: 2px solid #030711;
+}
