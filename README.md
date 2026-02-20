@@ -186,7 +186,7 @@ Common options:
 
 For questions, suggestions, or support:
 
-- 📫 Email: <contact@drivenation.com>
+- 📫 Email: <zetfounder@gmail.com>
 - 🐛 Issues: [GitHub Issues](../../issues)
 - 💬 Discussions: [GitHub Discussions](../../discussions)
 
