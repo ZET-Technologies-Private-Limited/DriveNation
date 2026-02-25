@@ -113,6 +113,9 @@ const Inventory: React.FC<InventoryProps> = ({ onCarSelect }) => {
                   </div>
                 )}
                 <img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1200ms] ease-out" src={car.image} alt={car.model} />
+                <div className="absolute top-4 right-4 bg-blue-900/80 backdrop-blur-sm text-blue-400 text-[9px] font-bold px-2.5 py-1 flex items-center gap-1 border border-blue-400/20 rounded">
+                  <span className="material-icons text-[10px]">360</span> 360°
+                </div>
                 <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-navy-900 to-transparent"></div>
                 <div className="absolute bottom-5 left-6 right-6 text-silver-light">
                   <h3 className="text-xl font-bold leading-none tracking-tight font-serif">{car.make} {car.model}</h3>

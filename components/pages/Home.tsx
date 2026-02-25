@@ -133,8 +133,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate, onCarSelect }) => {
                       {car.tags[0]}
                     </div>
                   )}
-                  <div className="absolute bottom-5 right-5 bg-navy-900/80 backdrop-blur-sm text-silver-metallic text-[10px] font-medium px-3 py-1.5 flex items-center gap-1.5 border border-silver-metallic/20">
-                    <span className="material-icons text-[12px]">photo_camera</span> 8
+                  <div className="absolute bottom-5 right-5 flex gap-2">
+                    <div className="bg-navy-900/80 backdrop-blur-sm text-silver-metallic text-[10px] font-medium px-3 py-1.5 flex items-center gap-1.5 border border-silver-metallic/20">
+                      <span className="material-icons text-[12px]">photo_camera</span> Gallery
+                    </div>
+                    <div className="bg-blue-900/80 backdrop-blur-sm text-blue-400 text-[10px] font-medium px-3 py-1.5 flex items-center gap-1.5 border border-blue-400/20">
+                      <span className="material-icons text-[12px]">360</span> 360°
+                    </div>
                   </div>
                 </div>
                 <div className="p-8">

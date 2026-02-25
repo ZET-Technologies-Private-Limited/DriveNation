@@ -10,7 +10,12 @@
   "dependencies": {
     "next": "^15.3.2",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "three": "^r157",
+    "@react-three/fiber": "^8.15.0",
+    "@react-three/drei": "^9.88.0",
+    "lucide-react": "^0.344.0",
+    "@fal-ai/serverless-client": "^1.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

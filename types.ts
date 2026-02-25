@@ -23,6 +23,9 @@ export interface Car {
   gallery: string[];
   tags?: string[];
   status?: 'Available' | 'Sold' | 'Reserved';
+  images360?: string[];
+  modelId?: string;
+  carColor?: string;
 }
 
 // Car Generator Configuration
@@ -241,7 +244,24 @@ const generateCars = (count: number): Car[] => {
   return cars;
 };
 
+// Enhance all cars with 360° images
+const enrichedExistingCars = EXISTING_CARS.map(car => ({
+  ...car,
+  images360: car.gallery && car.gallery.length > 0 
+    ? car.gallery 
+    : [car.image, car.image, car.image, car.image, car.image, car.image, car.image, car.image],
+  carColor: '#1f2937'
+}));
+
+const enrichedGeneratedCars = generateCars(100).map(car => ({
+  ...car,
+  images360: car.gallery && car.gallery.length > 0 
+    ? car.gallery 
+    : [car.image, car.image, car.image, car.image, car.image, car.image, car.image, car.image],
+  carColor: '#1f2937'
+}));
+
 export const SAMPLE_CARS: Car[] = [
-  ...EXISTING_CARS,
-  ...generateCars(100)
+  ...enrichedExistingCars,
+  ...enrichedGeneratedCars
 ];

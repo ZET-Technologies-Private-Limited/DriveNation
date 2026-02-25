@@ -1,5 +1,6 @@
 import React from 'react';
 import { Page, Car } from '@/types';
+import ImageGallery from '@/components/ImageGallery';
 
 interface DetailsProps {
   car: Car;
@@ -26,21 +27,30 @@ const Details: React.FC<DetailsProps> = ({ car, onNavigate }) => {
           
           {/* Left Column: Images & Info */}
           <div className="lg:col-span-8 space-y-8">
-            <div className="bg-navy-800 overflow-hidden border border-white/5">
-              <div className="relative aspect-video w-full group">
-                <img src={car.image} alt={car.model} className="object-cover w-full h-full" />
-                <div className="absolute top-5 left-5 bg-navy-900/80 backdrop-blur-sm text-silver-light text-[10px] font-bold px-4 py-1.5 uppercase tracking-[0.15em] border border-white/10">
+            <div className="bg-navy-800 overflow-hidden border border-white/5 p-6">
+              {/* Enhanced Gallery with 360° and 3D Views */}
+              <ImageGallery 
+                images={car.gallery.length > 0 ? car.gallery : [car.image]}
+                carName={car.model}
+                carMake={car.make}
+                enable360={true}
+                enable3D={true}
+              />
+              
+              {/* Tag Badge */}
+              <div className="mt-6 flex items-center gap-4">
+                <div className="bg-navy-900/80 backdrop-blur-sm text-silver-light text-[10px] font-bold px-4 py-1.5 uppercase tracking-[0.15em] border border-white/10 rounded">
                   {car.tags?.[0] || 'Verified'}
                 </div>
-                <button className="absolute bottom-5 right-5 glass-card hover:bg-white/10 text-silver-light px-5 py-2.5 flex items-center gap-2.5 text-[11px] font-medium transition-all duration-300">
-                  <span className="material-icons text-base">grid_view</span>
-                  View Gallery
-                </button>
-              </div>
-              <div className="flex p-4 gap-2 overflow-x-auto bg-navy-900">
-                {car.gallery.map((img, idx) => (
-                   <img key={idx} src={img} className="w-24 h-16 object-cover cursor-pointer opacity-50 hover:opacity-100 border border-white/10 hover:border-silver-metallic/30 transition-all duration-300" alt="thumb" />
-                ))}
+                {car.status && (
+                  <div className={`text-[10px] font-bold px-4 py-1.5 uppercase tracking-[0.15em] rounded border ${
+                    car.status === 'Available' ? 'bg-green-900/30 border-green-500/50 text-green-400' :
+                    car.status === 'Sold' ? 'bg-red-900/30 border-red-500/50 text-red-400' :
+                    'bg-yellow-900/30 border-yellow-500/50 text-yellow-400'
+                  }`}>
+                    {car.status}
+                  </div>
+                )}
               </div>
             </div>
 
