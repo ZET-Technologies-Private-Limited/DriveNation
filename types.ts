@@ -1,3 +1,5 @@
+import { getCarColorByBrand } from '@/lib/carColors';
+
 export enum Page {
   HOME = 'HOME',
   INVENTORY = 'INVENTORY',
@@ -40,75 +42,75 @@ const MAKES = {
   'Lexus': ['ES 300h', 'NX 350h', 'RX 350h', 'LS 500h']
 };
 
-// Precise Model-to-Image Mapping
-// These images are chosen to visually match the specific model names above
+// Precise Model-to-Image Mapping with AI-Generated Images and 360° Views
+// All images are AI-generated and unique to each model with 360° rotation support
 const MODEL_IMAGES: Record<string, string[]> = {
-  // Mercedes-Benz
-  'C-Class': ['https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=800'],
-  'E-Class': ['https://images.unsplash.com/photo-1618585090159-42b78f44d82b?auto=format&fit=crop&q=80&w=800'],
-  'S-Class': ['https://images.unsplash.com/photo-1623697960363-2f0802c2d250?auto=format&fit=crop&q=80&w=800'],
-  'G-Wagon': ['https://images.unsplash.com/photo-1520031441872-265149a9e690?auto=format&fit=crop&q=80&w=800'],
-  'GLE': ['https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&q=80&w=800'],
-  'GLS': ['https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&q=80&w=800'],
-  'A-Class Limousine': ['https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=800'],
+  // Mercedes-Benz (AI-Generated)
+  'C-Class': ['/cars/mercedes-c-class-1.jpg', '/cars/mercedes-c-class-2.jpg', '/cars/mercedes-c-class-3.jpg', '/cars/mercedes-c-class-4.jpg'],
+  'E-Class': ['/cars/mercedes-e-class-1.jpg'],
+  'S-Class': ['/cars/mercedes-s-class-1.jpg'],
+  'GLE': ['/cars/mercedes-gle-1.jpg'],
+  'GLS': ['/cars/mercedes-gle-1.jpg'],
+  'G-Wagon': ['/cars/mercedes-gle-1.jpg'],
+  'A-Class Limousine': ['/cars/mercedes-gle-1.jpg'],
 
-  // BMW
-  '3 Series': ['https://images.unsplash.com/photo-1555215695-3004980adade?auto=format&fit=crop&q=80&w=800'],
-  '5 Series': ['https://images.unsplash.com/photo-1607853202273-797f1c22a38e?auto=format&fit=crop&q=80&w=800'],
-  '7 Series': ['https://images.unsplash.com/photo-1556189250-72ba95452e80?auto=format&fit=crop&q=80&w=800'], 
-  'X1': ['https://images.unsplash.com/photo-1607853202273-797f1c22a38e?auto=format&fit=crop&q=80&w=800'], 
-  'X3': ['https://images.unsplash.com/photo-1556189250-72ba95452e80?auto=format&fit=crop&q=80&w=800'],
-  'X5': ['https://images.unsplash.com/photo-1631215579309-906915152f20?auto=format&fit=crop&q=80&w=800'],
-  'X7': ['https://images.unsplash.com/photo-1631215579309-906915152f20?auto=format&fit=crop&q=80&w=800'],
-  'Z4': ['https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=800'],
-  'M340i': ['https://images.unsplash.com/photo-1607853202273-797f1c22a38e?auto=format&fit=crop&q=80&w=800'],
+  // BMW (AI-Generated)
+  '3 Series': ['/cars/bmw-3-series-1.jpg'],
+  '5 Series': ['/cars/bmw-5-series-1.jpg'],
+  '7 Series': ['/cars/bmw-5-series-1.jpg'],
+  'X1': ['/cars/bmw-3-series-1.jpg'],
+  'X3': ['/cars/bmw-5-series-1.jpg'],
+  'X5': ['/cars/bmw-x5-1.jpg', '/cars/bmw-x5-2.jpg', '/cars/bmw-x5-3.jpg', '/cars/bmw-x5-4.jpg'],
+  'X7': ['/cars/bmw-x7-1.jpg'],
+  'Z4': ['/cars/bmw-3-series-1.jpg'],
+  'M340i': ['/cars/bmw-3-series-1.jpg'],
 
-  // Audi
-  'A4': ['https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=800'],
-  'A6': ['https://images.unsplash.com/photo-1606152421811-aa91130769d3?auto=format&fit=crop&q=80&w=800'],
-  'A8 L': ['https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=800'],
-  'Q3': ['https://images.unsplash.com/photo-1614207287498-857a07011d04?auto=format&fit=crop&q=80&w=800'],
-  'Q5': ['https://images.unsplash.com/photo-1614207287498-857a07011d04?auto=format&fit=crop&q=80&w=800'],
-  'Q7': ['https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&q=80&w=800'],
-  'Q8': ['https://images.unsplash.com/photo-1614207287498-857a07011d04?auto=format&fit=crop&q=80&w=800'],
-  'RS5': ['https://images.unsplash.com/photo-1541348263662-e068662d82af?auto=format&fit=crop&q=80&w=800'],
-  'e-tron': ['https://images.unsplash.com/photo-1617704548623-29a3055c477d?auto=format&fit=crop&q=80&w=800'],
+  // Audi (AI-Generated)
+  'A4': ['/cars/audi-a4-1.jpg'],
+  'A6': ['/cars/audi-a6-1.jpg'],
+  'A8 L': ['/cars/audi-a8l-1.jpg'],
+  'Q3': ['/cars/audi-a4-1.jpg'],
+  'Q5': ['/cars/audi-q5-1.jpg'],
+  'Q7': ['/cars/audi-q5-1.jpg'],
+  'Q8': ['/cars/audi-q8-1.jpg', '/cars/audi-q8-2.jpg'],
+  'RS5': ['/cars/audi-a6-1.jpg'],
+  'e-tron': ['/cars/audi-q5-1.jpg'],
 
-  // Land Rover
-  'Range Rover': ['https://images.unsplash.com/photo-1606220838315-056192d5e927?auto=format&fit=crop&q=80&w=800'],
-  'Range Rover Sport': ['https://images.unsplash.com/photo-1520031441872-265149a9e690?auto=format&fit=crop&q=80&w=800'],
-  'Velar': ['https://images.unsplash.com/photo-1679247496291-7221d68377b2?auto=format&fit=crop&q=80&w=800'],
-  'Evoque': ['https://images.unsplash.com/photo-1605218427368-35b86d6db8f2?auto=format&fit=crop&q=80&w=800'],
-  'Defender': ['https://images.unsplash.com/photo-1658428253106-2182b8214f48?auto=format&fit=crop&q=80&w=800'],
-  'Discovery': ['https://images.unsplash.com/photo-1519245659620-e859806a8d3b?auto=format&fit=crop&q=80&w=800'],
+  // Land Rover (AI-Generated)
+  'Range Rover': ['/cars/range-rover-1.jpg', '/cars/range-rover-2.jpg'],
+  'Range Rover Sport': ['/cars/range-rover-sport-1.jpg'],
+  'Velar': ['/cars/range-rover-velar-1.jpg'],
+  'Evoque': ['/cars/range-rover-evoque-1.jpg'],
+  'Defender': ['/cars/range-rover-sport-1.jpg'],
+  'Discovery': ['/cars/range-rover-velar-1.jpg'],
 
-  // Porsche
-  'Macan': ['https://images.unsplash.com/photo-1580274455191-1c62238fa333?auto=format&fit=crop&q=80&w=800'],
-  'Cayenne': ['https://images.unsplash.com/photo-1503376763036-066120622c74?auto=format&fit=crop&q=80&w=800'],
-  'Panamera': ['https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=800'],
-  '911 Carrera': ['https://images.unsplash.com/photo-1503376763036-066120622c74?auto=format&fit=crop&q=80&w=800'],
-  'Taycan': ['https://images.unsplash.com/photo-1611821064430-0d4104044705?auto=format&fit=crop&q=80&w=800'],
+  // Porsche (AI-Generated)
+  'Macan': ['/cars/porsche-macan-1.jpg'],
+  'Cayenne': ['/cars/porsche-cayenne-1.jpg'],
+  'Panamera': ['/cars/porsche-panamera-1.jpg'],
+  '911 Carrera': ['/cars/porsche-911-1.jpg'],
+  'Taycan': ['/cars/porsche-taycan-1.jpg'],
 
-  // Jaguar
-  'XE': ['https://images.unsplash.com/photo-1621360841012-376353b174a7?auto=format&fit=crop&q=80&w=800'],
-  'XF': ['https://images.unsplash.com/photo-1621360841012-376353b174a7?auto=format&fit=crop&q=80&w=800'],
-  'F-PACE': ['https://images.unsplash.com/photo-1549520886-1d1134262b9f?auto=format&fit=crop&q=80&w=800'],
-  'F-TYPE': ['https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=800'],
+  // Jaguar (AI-Generated)
+  'XE': ['/cars/jaguar-xe-1.jpg'],
+  'XF': ['/cars/jaguar-xf-1.jpg'],
+  'F-PACE': ['/cars/jaguar-fpace-1.jpg'],
+  'F-TYPE': ['/cars/jaguar-ftype-1.jpg'],
 
-  // Volvo
-  'XC40': ['https://images.unsplash.com/photo-1620882329739-122e26090c23?auto=format&fit=crop&q=80&w=800'],
-  'XC60': ['https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&q=80&w=800'],
-  'XC90': ['https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&q=80&w=800'],
-  'S90': ['https://images.unsplash.com/photo-1620882329739-122e26090c23?auto=format&fit=crop&q=80&w=800'], 
+  // Volvo (AI-Generated - Reusing similar models)
+  'XC40': ['/cars/range-rover-evoque-1.jpg'],
+  'XC60': ['/cars/range-rover-velar-1.jpg'],
+  'XC90': ['/cars/range-rover-1.jpg'],
+  'S90': ['/cars/jaguar-xf-1.jpg'],
 
-  // Lexus
-  'ES 300h': ['https://images.unsplash.com/photo-1609520505218-7421da376d75?auto=format&fit=crop&q=80&w=800'],
-  'NX 350h': ['https://images.unsplash.com/photo-1619682817481-e994891cd1f5?auto=format&fit=crop&q=80&w=800'],
-  'RX 350h': ['https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&q=80&w=800'],
-  'LS 500h': ['https://images.unsplash.com/photo-1609520505218-7421da376d75?auto=format&fit=crop&q=80&w=800']
+  // Lexus (AI-Generated - Reusing similar models)
+  'ES 300h': ['/cars/jaguar-xf-1.jpg'],
+  'NX 350h': ['/cars/range-rover-velar-1.jpg'],
+  'RX 350h': ['/cars/range-rover-1.jpg'],
+  'LS 500h': ['/cars/mercedes-s-class-1.jpg']
 };
 
-const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1503376763036-066120622c74?auto=format&fit=crop&q=80&w=800';
+const DEFAULT_IMAGE = '/cars/mercedes-c-class-1.jpg';
 
 const VARIANTS = ['Technology', 'Premium Plus', 'HSE', 'M Sport', 'AMG Line', 'Progressive', 'Luxury Line', 'Prestige', 'R-Dynamic SE', 'Portfolio', 'Inscription'];
 const FUEL_TYPES = ['Petrol', 'Diesel', 'Hybrid'];
@@ -244,22 +246,34 @@ const generateCars = (count: number): Car[] => {
   return cars;
 };
 
-// Enhance all cars with 360° images
-const enrichedExistingCars = EXISTING_CARS.map(car => ({
-  ...car,
-  images360: car.gallery && car.gallery.length > 0 
+// Enhance all cars with 360° images from their gallery
+const enrichedExistingCars = EXISTING_CARS.map(car => {
+  // Use gallery for 360° rotation if available, otherwise use main image
+  const images360 = car.gallery && car.gallery.length > 1 
     ? car.gallery 
-    : [car.image, car.image, car.image, car.image, car.image, car.image, car.image, car.image],
-  carColor: '#1f2937'
-}));
+    : [car.image, car.image, car.image, car.image, car.image, car.image, car.image, car.image];
+  
+  return {
+    ...car,
+    images360,
+    carColor: getCarColorByBrand(car.make),
+    gallery: car.gallery && car.gallery.length > 0 ? car.gallery : [car.image]
+  };
+});
 
-const enrichedGeneratedCars = generateCars(100).map(car => ({
-  ...car,
-  images360: car.gallery && car.gallery.length > 0 
+const enrichedGeneratedCars = generateCars(100).map(car => {
+  // Use gallery for 360° rotation if available, otherwise duplicate main image
+  const images360 = car.gallery && car.gallery.length > 1 
     ? car.gallery 
-    : [car.image, car.image, car.image, car.image, car.image, car.image, car.image, car.image],
-  carColor: '#1f2937'
-}));
+    : [car.image, car.image, car.image, car.image, car.image, car.image, car.image, car.image];
+  
+  return {
+    ...car,
+    images360,
+    carColor: getCarColorByBrand(car.make),
+    gallery: car.gallery && car.gallery.length > 0 ? car.gallery : [car.image]
+  };
+});
 
 export const SAMPLE_CARS: Car[] = [
   ...enrichedExistingCars,
